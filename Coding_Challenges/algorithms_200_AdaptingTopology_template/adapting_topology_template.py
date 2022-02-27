@@ -30,6 +30,31 @@ def n_swaps(cnot):
 
     # QHACK #
 
+    from collections import deque
+
+    visited = []
+    neighbor = deque(graph[cnot.wires[0]])
+    neighbor.append(len(graph))
+    num_swap = 0
+
+    while neighbor:
+        wire = neighbor.popleft()
+
+        if wire == cnot.wires[1]:
+            return (num_swap)*2
+
+        if wire == len(graph):
+            num_swap=num_swap+1
+            continue
+
+        if wire not in visited:
+            visited.append(wire)
+            neighbor.extend(graph[wire])
+            if neighbor[0] == len(graph):
+                neighbor.append(len(graph))
+
+    return -1
+
     # QHACK #
 
 

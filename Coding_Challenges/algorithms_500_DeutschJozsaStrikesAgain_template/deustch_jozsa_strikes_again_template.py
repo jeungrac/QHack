@@ -17,7 +17,7 @@ def deutsch_jozsa(fs):
     """
 
     # QHACK #
-
+    print(fs)
     # QHACK #
 
 

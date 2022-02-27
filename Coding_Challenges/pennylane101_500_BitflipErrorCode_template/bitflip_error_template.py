@@ -51,12 +51,18 @@ def circuit(p, alpha, tampered_wire):
     # QHACK #
 
     # put any input processing gates here
+    qml.CNOT(wires=[0,1])
+    qml.CNOT(wires=[0,2])
 
     qml.BitFlip(p, wires=int(tampered_wire))
 
     # put any gates here after the bitflip error has occurred
+    qml.CNOT(wires=[0,1])
+    qml.CNOT(wires=[0,2])
+    qml.Toffoli(wires=[1,2,0])
 
     # return something!
+    return qml.probs(wires=[0,1,2])
     # QHACK #
 
 
@@ -67,6 +73,8 @@ def density_matrix(alpha):
         [0, 1], dtype=float
     )
     psi = np.kron(psi, np.array([1, 0, 0, 0], dtype=float))
+    print(psi)
+    print(psi.shape)
     return np.outer(psi, np.conj(psi))
 
 

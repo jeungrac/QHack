@@ -18,7 +18,10 @@ def binary_list(m, n):
 
     arr = []
     # QHACK #
-
+    for i in reversed(range(n)):
+        val = int(m/pow(2,i))
+        arr.append(val)
+        m = m%pow(2,i)
     # QHACK #
     return arr
 
@@ -37,7 +40,8 @@ def basis_states(n):
     arr = []
 
     # QHACK #
-
+    for i in range(pow(2,n)):
+        arr.append(binary_list(i,n))
     # QHACK #
 
     return arr
@@ -56,7 +60,18 @@ def is_particle_preserving(circuit, n):
     """
 
     # QHACK #
+    states = basis_states(n)
 
+    for state in states:
+        weight = sum(state)
+        result = circuit(state)
+        for i in range(len(result)):
+            if result[i] != 0:
+                ret_binary = binary_list(i, n)
+                if weight != sum(ret_binary):
+                    return False
+
+    return True
     # QHACK #
 
 

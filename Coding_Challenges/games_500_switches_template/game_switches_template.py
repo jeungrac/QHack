@@ -23,9 +23,16 @@ def switch(oracle):
     def circuit():
 
         # QHACK #
+        qml.PauliX(wires="light")
+        qml.Hadamard(wires="light")
+        for i in range(3):
+            qml.Hadamard(i)
 
         # You are allowed to place operations before and after the oracle without any problem.
         oracle()
+
+        for i in range(3):
+            qml.Hadamard(i)
 
         # QHACK #
 
@@ -36,7 +43,12 @@ def switch(oracle):
     # QHACK #
 
     # Process the received sample and return the requested list.
+    ret = []
+    for i in range(3):
+        if 1 == sample[i]:
+            ret.append(i)
 
+    return ret
     # QHACK #
 
 
